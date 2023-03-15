@@ -1,0 +1,6 @@
+digraph "State Machine" {
+	graph [color=black directed=true fillcolor=white label="State Machine" rankdir=LR "strict"=false style=solid]
+	node [color=black fillcolor=white peripheries=1 shape=rectangle style="rounded, filled"]
+	edge [color=black]
+	initial [label="initial\l" color=red fillcolor=darksalmon peripheries=2]
+}

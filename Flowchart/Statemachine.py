@@ -1,6 +1,9 @@
 # use pytransitions
+import os
 from transitions import Machine
+from transitions.extensions import GraphMachine
 
+os.environ["PATH"] += os.pathsep + "D:/Program Files (x86)/Graphviz2.38/bin/"
 # create a class named Vision
 class Vision(object):
     # define the states
@@ -14,8 +17,7 @@ class Vision(object):
         "stop",
     ]
 
-    def __init__(self, camera):
-        self.name = camera
+    def __init__(self):
         # initialize the state machine
         self.machine = Machine(model=self, states=Vision.states, initial="start")
         # add the transitions
@@ -43,3 +45,9 @@ class Vision(object):
             trigger="object_found", source="obejct found", dest="track"
         )
         self.machine.add_transition(trigger="turn_off", source="*", dest="stop")
+
+
+m = Vision()
+machine = GraphMachine(model=m, use_pygraphviz=False)
+# draw the graph
+machine.get_graph().draw("my_state_diagram.png", prog="dot")
