@@ -8,15 +8,15 @@ int ID1 = 1;         // ID of the first tag
 
 void printResult(HUSKYLENSResult result)
 {
-  if (result.command == COMMAND_RETURN_BLOCK){
-   Serial.println(String() + F("Block:xCenter=") + result.xCenter + F(",yCenter=") + result.yCenter + F(",width=") + result.width + F(",height=") + result.height + F(",ID=") + result.ID);
-    }
-    else if (result.command == COMMAND_RETURN_ARROW){
-        Serial.println(String() + F("Arrow:xOrigin=") + result.xOrigin + F(",yOrigin=") + result.yOrigin + F(",xTarget=") + result.xTarget + F(",yTarget=") + result.yTarget + F(",ID=") + result.ID);
-    }
-    else{
-        Serial.println("Object unknown!");
-    }
+  if (result.command == COMMAND_RETURN_BLOCK)
+  {
+    Serial.println(String() + F("Block:xCenter=") + result.xCenter + F(",yCenter=") + result.yCenter + F(",width=") + result.width + F(",height=") + result.height + F(",ID=") + result.ID);
+  }
+  else
+  {
+    Serial.println("Object unknown!");
+  }
+  delay(1000);
 }
 
 void setup()
