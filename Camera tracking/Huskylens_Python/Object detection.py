@@ -33,6 +33,11 @@ def printObjectNicely(obj):
 
 
 while True:
-    printObjectNicely(h1.getObjectByID(1))
+    a = h1.count()
+    if a == 1:
+        printObjectNicely(h1.getObjectByID(1))
+    else:
+        print("No object detected")
+    # printObjectNicely(h1.getObjectByID(1))
     # delay by 1 second
-    time.sleep(1)
+    # time.sleep(1)
