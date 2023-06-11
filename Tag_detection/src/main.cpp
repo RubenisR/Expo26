@@ -7,17 +7,17 @@ int x;
 int y;
 int w;
 int h;
-
+float distance =0;
+float d;
 void printResult(HUSKYLENSResult result)
 {
   if (result.command == COMMAND_RETURN_BLOCK)
   {
-    //Serial.println(String() + F("Block:xCenter=") + result.xCenter + F(",yCenter=") + result.yCenter + F(",width=") + result.width + F(",height=") + result.height + F(",ID=") + result.ID);
-   x=result.xCenter;
-   y=result.yCenter;
-   w=result.width;
-   h=result.height;
-
+    // Serial.println(String() + F("Block:xCenter=") + result.xCenter + F(",yCenter=") + result.yCenter + F(",width=") + result.width + F(",height=") + result.height + F(",ID=") + result.ID);
+    x = result.xCenter;
+    y = result.yCenter;
+    w = result.width;
+    h = result.height;
   }
   else
   {
@@ -26,21 +26,47 @@ void printResult(HUSKYLENSResult result)
   delay(1000);
 }
 
-void objectlocation(){ //if object is to the right or left then move back to center
-if (x<160) {
-  Serial.println("move left");
+void objectlocation()
+{ // if object is to the right or left then move back to center
+  if (x < 160)
+  {
+    Serial.println("move left");
+  }
+  else if (x > 160)
+  {
+    Serial.println("move right");
+  }
+  else if (x == 160)
+  {
+    Serial.println("centered");
+  }
 }
-else if (x>160) {
-  Serial.println("move right");
-}
-else if (x==160) {
-  Serial.println("centered");
+void move(){
+  if (d<145){
+    Serial.println("move backward");
+  }
+  else if (d>155){
+    Serial.println("move forward");
 
+  }
+  else if (d>145 && d<155){
+    Serial.println("centered");
+  }
+  else{
+    Serial.println("error");
+  }
+  
 }
+
+float calculation(int h)
+{
+  distance = -2.85726 * h + 281.9097;
+  return distance;
 }
 
 void setup()
 {
+  
   Serial.begin(9600);
   Wire.begin(); // begins comunication with the HUSKYLENS
   while (!huskylens.begin(Wire))
@@ -72,12 +98,17 @@ void loop()
     HUSKYLENSResult result = huskylens.read(); // read the result
     printResult(result);                       // print the result
   }
+  Serial.println(calculation(h));
+  //d=calculation(h);
+  //move();
+
+  // delay(1000);
   /*Serial.println(x);
   Serial.println(y);*/
-  Serial.print("width");
-  Serial.println(w);
-  Serial.print("height");
-  Serial.println(h);
+  // Serial.print("width");
+  // Serial.println(w);
+  // Serial.print("height");
+  //Serial.println(h);
   delay(1000);
-  //objectlocation();
+  // objectlocation();
 }
