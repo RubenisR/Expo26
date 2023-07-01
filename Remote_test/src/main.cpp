@@ -22,7 +22,7 @@ const int right = 4;
 // bool enable_in4 = 0;
 
 long int time = 0;
-int movement_direction;
+int movement_direction = -1;
 int movement = 0;
 long int indicator = 0;
 
@@ -48,23 +48,23 @@ void printResult(HUSKYLENSResult result)
   {
     Serial.println("Object unknown!");
   }
-  delay(1000);
+  delay(10);
 }
 
 int objectlocation()
 { // if object is to the right or left then move back to center
   int position = x;
-  if (position < 130)
+  if (position < 120)
   {
     Serial.println("object left");
     return 0;
   }
-  else if (position > 190)
+  else if (position > 240)
   {
     Serial.println("object right");
     return 2;
   }
-  else if ((position >= 130) && (position <= 190))
+  else if ((position >= 120) && (position <= 240))
   {
     Serial.println("object centered");
     return 1;
@@ -107,7 +107,6 @@ void setup()
   pinMode(forward, OUTPUT);
   pinMode(backward, OUTPUT);
   pinMode(left, OUTPUT);
-
   pinMode(right, OUTPUT);
 
   while (!huskylens.begin(Wire))
@@ -159,7 +158,7 @@ void loop()
   Serial.println(calculation(h));
   d=calculation(h);
   */
-  if (((millis() - time) > 100))
+  if (((millis() - time) > 10))
   {
 
     if (!huskylens.request(ID1))
@@ -191,6 +190,10 @@ void loop()
     Serial.println(movement_direction);
     time = millis();
     movement = 0;
+    digitalWrite(forward, LOW);
+    digitalWrite(backward, LOW);
+    digitalWrite(left, LOW);
+    digitalWrite(right, LOW);
   }
   else
   {
